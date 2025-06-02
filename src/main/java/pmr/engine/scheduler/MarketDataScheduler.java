@@ -12,7 +12,7 @@ public class MarketDataScheduler {
         this.marketDataFetcher = marketDataFetcher;
     }
 
-    @Scheduled(cron = "0 0 6 * * *")
+    @Scheduled(cron = "0 5 6 * * *", zone = "UTC")
     public void updateMarketDataDaily() {
         marketDataFetcher.fetchMarketData();
     }
