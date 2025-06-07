@@ -1,8 +1,6 @@
 package pmr.engine.api;
 
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +16,6 @@ import pmr.engine.security.JwtUtil;
 import pmr.engine.repository.UserRepository;
 import pmr.engine.service.UserDetailsServiceImpl;
 
-import java.time.Duration;
 import java.util.Map;
 
 @RestController
@@ -49,32 +46,7 @@ public class AuthController {
         UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
         String token = jwtUtil.generateToken(userDetails);
 
-        ResponseCookie cookie = ResponseCookie.from("token", token)
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .sameSite("None")
-                .maxAge(Duration.ofHours(10))
-                .build();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, cookie.toString())
-                .body(new AuthResponse(token));
-    }
-
-    @PostMapping("/signout")
-    public ResponseEntity<String> signOut() {
-        ResponseCookie deleteCookie = ResponseCookie.from("token", "")
-                .httpOnly(true)
-                .secure(true)
-                .path("/")
-                .sameSite("None")
-                .maxAge(0)
-                .build();
-
-        return ResponseEntity.ok()
-                .header(HttpHeaders.SET_COOKIE, deleteCookie.toString())
-                .body("Logged out successfully");
+        return ResponseEntity.ok(new AuthResponse(token));
     }
 
     @PostMapping("/signup")
