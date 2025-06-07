@@ -38,9 +38,9 @@ public class MarketDataFetcher {
              Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
-             while (rs.next()) {
-                 tickers.add(rs.getString("ticker"));
-             }
+            while (rs.next()) {
+                tickers.add(rs.getString("ticker"));
+            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -99,7 +99,7 @@ public class MarketDataFetcher {
                 try (PreparedStatement countStmt = conn.prepareStatement(countQuery)) {
                     countStmt.setString(1, ticker);
                     ResultSet rs = countStmt.executeQuery();
-                    if (rs.next() && rs.getInt(1) > 365) {
+                    if (rs.next() && rs.getInt(1) > 250) {
                         String deleteQuery = "DELETE FROM historical_prices WHERE (ticker, date) IN (" +
                                 "SELECT ticker, date FROM historical_prices WHERE ticker = ? ORDER BY date ASC LIMIT 1)";
                         try (PreparedStatement deleteStmt = conn.prepareStatement(deleteQuery)) {

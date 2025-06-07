@@ -5,19 +5,15 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import pmr.engine.analysis.PortfolioAnalyzer;
-import pmr.engine.fetch.Repository;
+import pmr.engine.service.Repository;
 import pmr.engine.model.*;
 
 @RestController
 public class MainController {
     private final Repository repository;
 
-    public MainController() {
-        this.repository = new Repository(
-                System.getenv("DB_URL"),
-                System.getenv("DB_USER"),
-                System.getenv("DB_PASS")
-        );
+    public MainController(Repository repository) {
+        this.repository = repository;
     }
 
     @PostMapping("/analyze")

@@ -1,0 +1,16 @@
+name: Trigger Market Data Update
+
+on:
+  schedule:
+    - cron: '0 22 * * *'
+  workflow_dispatch:
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call market data update API
+        run: |
+          curl -X POST ${{ secrets.PRODUCTION_URL }}/market/update \
+            -H "Authorization: Bearer ${{ secrets.POLYGON_API_KEY }}"

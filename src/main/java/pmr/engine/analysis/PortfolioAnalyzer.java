@@ -4,7 +4,7 @@ import org.apache.commons.math3.distribution.NormalDistribution;
 import org.apache.commons.math3.stat.descriptive.moment.Mean;
 import org.apache.commons.math3.stat.descriptive.moment.StandardDeviation;
 
-import pmr.engine.fetch.Repository;
+import pmr.engine.service.Repository;
 import pmr.engine.model.Asset;
 import pmr.engine.model.Portfolio;
 

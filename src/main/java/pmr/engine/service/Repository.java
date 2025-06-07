@@ -1,5 +1,6 @@
-package pmr.engine.fetch;
+package pmr.engine.service;
 
+import org.springframework.stereotype.Service;
 import pmr.engine.model.*;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -9,15 +10,16 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.*;
 
+@Service
 public class Repository {
     private final String dbUrl;
     private final String user;
     private final String pass;
 
-    public Repository(String dbUrl, String user, String pass) {
-        this.dbUrl = dbUrl;
-        this.user = user;
-        this.pass = pass;
+    public Repository() {
+        this.dbUrl = System.getenv("DB_URL");
+        this.user = System.getenv("DB_USER");
+        this.pass = System.getenv("DB_PASS");
     }
 
     public List<LocalDate> fetchTradingDates() {
