@@ -16,6 +16,11 @@ public class MainController {
         this.repository = repository;
     }
 
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "OK";
+    }
+
     @PostMapping("/analyze")
     public int analyze(@RequestBody Portfolio portfolio) {
         long userId = getAuthenticatedUserId();

@@ -1,0 +1,13 @@
+name: Ping Render Service Every 15 Minutes
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Render Web Service
+        run: curl -sSf ${{ secrets.PRODUCTION_URL }}/health
